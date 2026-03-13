@@ -38,3 +38,5 @@ for message in consumer:
 
     conn.commit()
     print(f"Consumed: {event_type} | {repo} | {user}")
+cur.close()
+conn.close()
