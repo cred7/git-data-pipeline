@@ -78,7 +78,6 @@ jobs:
       - name: Run Consumer and Producer
         run: |
           echo "Starting consumer in background..."
-          - name: Run Producer then Consumer (fixed run)
             python producer/producer.py
             python consumer/consumer.py  # will exit after fixed number of messages
         #   nohup python consumer/consumer.py &
