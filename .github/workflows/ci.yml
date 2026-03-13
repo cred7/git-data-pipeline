@@ -66,6 +66,14 @@ jobs:
       - name: Run Database Setup
         run: python storage/script.py
 
+      - name: Wait for Kafka
+        run: |
+          echo "Waiting for Kafka..."
+          for i in {1..20}; do
+              nc -z localhost 9092 && echo "Kafka is up" && break
+              sleep 5
+          done
+
       - name: Run Kafka Consumer (background)
         run: nohup python consumer/consumer.py &
 
