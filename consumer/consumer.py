@@ -19,7 +19,8 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
-
+count = 0
+max = 30
 for message in consumer:
     event = message.value
 
@@ -31,6 +32,9 @@ for message in consumer:
         "INSERT INTO github_events (event_type, repo, user_login) VALUES (%s,%s,%s)",
         (event_type, repo, user)
     )
+    count += 1
+    if count >= max:
+        break
 
     conn.commit()
     print(f"Consumed: {event_type} | {repo} | {user}")
